@@ -2,6 +2,8 @@
  
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Forms\Form,
+    Phalcon\Forms\Element;
 
 class StoryController extends ControllerBase
 {
@@ -22,8 +24,7 @@ class StoryController extends ControllerBase
 
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "Story", $_POST);
-            $this->persistent->parameters = $query->getParams();
+            $this->persistent->parameters = array('search' => $this->request->getPost('search'));
         } else {
             $numberPage = $this->request->getQuery("page", "int");
         }
@@ -32,9 +33,10 @@ class StoryController extends ControllerBase
         if (!is_array($parameters)) {
             $parameters = array();
         }
-        $parameters["order"] = "id";
 
-        $story = Story::find($parameters);
+        $story = Story::query()
+        ->where('title LIKE :search: OR text LIKE :search:')
+        ->bind(array('search' => '%'.$parameters['search'].'%'))->execute();
         if (count($story) == 0) {
             $this->flash->notice("The search did not find any story");
 
@@ -43,7 +45,6 @@ class StoryController extends ControllerBase
                 "action" => "index"
             ));
         }
-
         $paginator = new Paginator(array(
             "data" => $story,
             "limit"=> 10,
@@ -58,7 +59,14 @@ class StoryController extends ControllerBase
      */
     public function newAction()
     {
+        // get user
+        $userData = $this->session->get('auth');
+        $user = User::findFirst($userData['id']);
+        $story = new Story();
+        $form = new AppForm\StoryForm($story, array('mode' => 'create', 'user' => $user));
 
+
+        $this->view->setVar("form",$form);
     }
 
     /**
@@ -81,13 +89,13 @@ class StoryController extends ControllerBase
                 ));
             }
 
-            $this->view->id = $story->getId();
+            // get user
+            $userData = $this->session->get('auth');
+            $user = User::findFirst($userData['id']);
+            $form = new AppForm\StoryForm($story, array('mode' => 'edit', 'user' => $user));
 
-            $this->tag->setDefault("id", $story->getId());
-            $this->tag->setDefault("title", $story->getTitle());
-            $this->tag->setDefault("text", $story->getText());
-            $this->tag->setDefault("date", $story->getDate());
-            $this->tag->setDefault("author", $story->getAuthor());
+
+            $this->view->setVar("form",$form);
             
         }
     }

@@ -63,6 +63,15 @@ $di->set('db', function () use ($config) {
     ));
 });
 
+
+
+
+if ($config->application->debug == 1) {
+    $debug = new \Phalcon\Debug();
+    $debug->listen();
+}
+
+
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */

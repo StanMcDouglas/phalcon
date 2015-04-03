@@ -268,7 +268,7 @@ class User extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->hasMany('id', 'Story', 'author', array('alias' => 'Stories'));
-        
+
     }
     public function validation()
     {
@@ -314,6 +314,10 @@ class User extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = array())
     {
         return parent::findFirst($parameters);
+    }
+
+    public function __toString() {
+        return "$this->firstname $this->lastname";
     }
 
 

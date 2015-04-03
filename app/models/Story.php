@@ -80,8 +80,13 @@ class Story extends \Phalcon\Mvc\Model
      */
     public function setDate($date)
     {
-        $this->date = $date;
+        // handling european date format
+        $date = str_replace('/', '.', $date);
 
+
+
+        $Date = new Library\Carbon($date);
+        $this->date = $Date->format('Y-m-d H:i:s');
         return $this;
     }
 
@@ -133,9 +138,10 @@ class Story extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getDate()
+    public function getDate($format = 'd/m/Y')
     {
-        return $this->date;
+        $Date = new Library\Carbon($this->date);
+        return $Date->format($format);
     }
 
     /**

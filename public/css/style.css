@@ -1,0 +1,31 @@
+#page {
+    width:1200px;
+    margin:15px auto;
+    border:1px solid #AAAAFF;
+}
+
+#page .header {
+    background:#AAAAFF;
+    height:80px;
+    padding:10px;
+    color:#FFFFFF;
+}
+#page .header a {
+    color:#FFFFFF;
+}
+
+#page .content {
+    padding:10px;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color:#000000;
+}
+
+
+
+a:hover {
+    text-decoration:underline;
+}
