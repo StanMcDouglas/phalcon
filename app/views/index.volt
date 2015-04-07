@@ -14,7 +14,14 @@
         </div>
     </div>
     <div class="content">
-		{{ content() }}
+        <div class="sidebar">
+            {{ this.elements.getNav() }}
+        </div>
+        <div class="middle">
+	    	{{ content() }}
+
+        </div>
+        <br style="clear:both;" />
     </div>
     </div>
 {{ this.elements.getJs() }}

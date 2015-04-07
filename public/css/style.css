@@ -53,9 +53,20 @@
 
 
 #page .content {
-    padding:10px 25px;
+    padding:0;
+}
+#page .content .sidebar {
+    width:250px;
+    float:left;
+    background:#CCCCFF;
+    padding:10px;
 }
 
+#page .content .middle {
+    width:750px;
+    float:left;
+    padding:10px;
+}
 
 /** Form Login **/
 
@@ -123,6 +134,18 @@
     float:left;
     margin:0px 15px;
 }
+
+
+/** Story page **/
+
+#page .content .storyContent {
+    text-align:left;
+}
+
+#page .content .storyContent .date {
+    font-style:italic;
+}
+
 
 a:hover {
     text-decoration:underline;

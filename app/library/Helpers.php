@@ -1,7 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Benjamin
- * Date: 07/04/2015
- * Time: 15:12
- */
+namespace Library;
+
+class Helpers {
+
+public static function cutWithWords($text, $length, $end) {
+    $textLength = strlen($text);
+    if ($textLength <= $length) {
+        return $text;
+    }
+    while($text[$length] != ' ' && $length < $textLength) {
+        $length++;
+    }
+    return substr($text, 0, $length).$end;
+}
+
+
+}

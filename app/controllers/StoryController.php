@@ -69,6 +69,14 @@ class StoryController extends ControllerBase
         $this->view->setVar("form",$form);
     }
 
+
+
+
+    public function viewAction($id) {
+        $story = Story::findFirstByid($id);
+        $this->view->setVar('story', $story);
+    }
+
     /**
      * Edits a story
      *

@@ -38,7 +38,11 @@ $di->set('view', function () use ($config, $di) {
         '.volt' => function ($view, $di) use ($config) {
 
             $volt = new VoltEngine($view, $di);
+            $compiler = $volt->getCompiler();
 
+            $compiler->addFilter('cutWithWords', function($args) {
+                return "Library\Helpers::cutWithWords($args);";
+            });
             $volt->setOptions(array(
                 'compiledPath' => $config->application->cacheDir,
                 'compiledSeparator' => '_'

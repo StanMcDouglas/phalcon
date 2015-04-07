@@ -34,10 +34,7 @@ class Security extends Plugin
         }
         //Private area resources (backend)
         $privateResources = array(
-            'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-            'story' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-            'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-            'invoices' => array('index', 'profile')
+            'story' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete', 'view')
         );
         foreach ($privateResources as $resource => $actions) {
             $acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
@@ -70,13 +67,21 @@ class Security extends Plugin
         return $acl;
     }
 
+    /**
+     * function getPartialTemplate
+     * get the partial template according
+     * to the user role
+     * @param $template string
+     * @return string
+     */
     public function getPartialTemplate($template) {
         if ($this->getRole() == 'Users') {
             return $template;
         } else {
-            return $template."NotLogged";
+            return $template . "NotLogged";
         }
     }
+
 
     public function getRole() {
         //Check whether the "auth" variable exists in session to define the active role
