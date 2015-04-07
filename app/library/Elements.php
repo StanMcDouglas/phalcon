@@ -7,8 +7,12 @@ class Elements extends Component
 
 
     public function getMenu()
-        {
-        return $this->view->partial('elements/menu');
+    {
+            // get security plugin to call the right partial template
+        $Listeners = $this->dispatcher->getEventsManager()->getListeners('dispatch');
+        $security = array_shift($Listeners);
+
+        return $this->view->partial($security->getPartialTemplate('elements/menu'));
 
     }
 

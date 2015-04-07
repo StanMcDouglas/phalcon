@@ -70,9 +70,15 @@ class Security extends Plugin
         return $acl;
     }
 
-    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
-    {
+    public function getPartialTemplate($template) {
+        if ($this->getRole() == 'Users') {
+            return $template;
+        } else {
+            return $template."NotLogged";
+        }
+    }
 
+    public function getRole() {
         //Check whether the "auth" variable exists in session to define the active role
         $auth = $this->session->get('auth');
         if (!$auth) {
@@ -80,7 +86,15 @@ class Security extends Plugin
         } else {
             $role = 'Users';
         }
+        return $role;
+    }
 
+
+    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
+    {
+
+
+        $role = $this->getRole();
         //Take the active controller/action from the dispatcher
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();

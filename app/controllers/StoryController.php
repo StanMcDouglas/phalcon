@@ -94,7 +94,7 @@ class StoryController extends ControllerBase
             $user = User::findFirst($userData['id']);
             $form = new AppForm\StoryForm($story, array('mode' => 'edit', 'user' => $user));
 
-
+            $this->view->setVar('story', $story);
             $this->view->setVar("form",$form);
             
         }

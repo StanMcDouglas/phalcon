@@ -15,6 +15,18 @@ class SessionController extends \Phalcon\Mvc\Controller
 
     }
 
+    public function logout() {
+        $this->session->offsetUnset('auth');
+    }
+
+    public function stopAction() {
+        $this->logout();
+        return $this->dispatcher->forward(array(
+            'controller' => 'index',
+            'action' => 'index'
+        ));
+    }
+
     public function startAction()
     {
         if ($this->request->isPost()) {

@@ -7,25 +7,129 @@
 #page .header {
     background:#AAAAFF;
     height:80px;
-    padding:10px;
+    padding:0px;
     color:#FFFFFF;
+    position:relative;
 }
 #page .header a {
     color:#FFFFFF;
 }
 
+#page .header .siteTitle {
+    font-size:25px;
+    fot-weight:bold;
+    width:100%;
+    text-align: center;
+    padding:15px 0px;
+}
+
+#page .header .menu {
+    margin:0px auto;
+    padding:0px;
+    bottom:0px;
+    left:0px;
+    position:absolute;
+}
+
+#page .header .menu a{
+    border-right:1px solid #FFFFFF;
+    padding:2px 7px;
+    margin:0px;
+    display:block;
+    float:left;
+
+}
+
+#page .header .menu a:last-child {
+    border-right:none;
+}
+
+#page .header .menu a:hover {
+    text-decoration: none;
+    background:#FFFFFF;
+    color:#AAAAFF;
+}
+/** Content */
+
+
 #page .content {
-    padding:10px;
+    padding:10px 25px;
+}
+
+
+/** Form Login **/
+
+#page .content form {
+    width:570px;
+    margin:0px auto;
+}
+
+#page .content form .formRow {
+    float:left;
+    width:100%;
+    clear:both;
+}
+
+#page .content form .formRow label {
+    float:left;
+    clear:both;
+    display:block;
+    width:200px;
+    text-align:right;
+    margin:5px 15px;
+
+}
+
+#page .content form .formRow input,#page .content form .formRow select,#page .content form .formRow textarea{
+    float:left;
+    display:block;
+    width:300px;
+    margin:5px 15px;
+    max-width:300px;
+
+}
+
+#page .content form .submit {
+    clear:both;
+    float:left;
+    margin-left:476px;
+    width:75px;
+}
+
+
+/** Search Result **/
+
+#page .content table.browse {
+    border:1px solid black;
+    border-spacing: 0px;
+    width:100%;
+    margin:15px 0px;
+}
+
+#page .content table.browse thead {
+    background:#C9C9C9;
+}
+
+#page .content table.browse td,#page .content table.browse th {
+    margin:0;
+    padding:5px 10px;
+}
+
+#page .content table.browse tr.even {
+    background:#EAEAEA;
+}
+
+#page .content .page_links .link {
+    float:left;
+    margin:0px 15px;
+}
+
+a:hover {
+    text-decoration:underline;
 }
 
 a {
     font-weight: bold;
     text-decoration: none;
     color:#000000;
-}
-
-
-
-a:hover {
-    text-decoration:underline;
 }

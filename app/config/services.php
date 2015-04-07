@@ -26,11 +26,13 @@ $di->set('url', function () use ($config) {
 /**
  * Setting up the view component
  */
-$di->set('view', function () use ($config) {
+$di->set('view', function () use ($config, $di) {
 
     $view = new View();
 
     $view->setViewsDir($config->application->viewsDir);
+    //Obtain the standard eventsManager from the DI
+    $eventsManager = $di->getShared('eventsManager');
 
     $view->registerEngines(array(
         '.volt' => function ($view, $di) use ($config) {
@@ -47,6 +49,13 @@ $di->set('view', function () use ($config) {
         '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
     ));
 
+    $security = new Security($di);
+
+    //Listen for events produced in the dispatcher using the Security plugin
+    $eventsManager->attach('view', $security);
+
+    //Bind the EventsManager to the View
+    $view->setEventsManager($eventsManager);
     return $view;
 }, true);
 
@@ -108,7 +117,6 @@ $di->set('dispatcher', function() use ($di) {
     $eventsManager->attach('dispatch', $security);
 
     $dispatcher = new Phalcon\Mvc\Dispatcher();
-
     //Bind the EventsManager to the Dispatcher
     $dispatcher->setEventsManager($eventsManager);
 
